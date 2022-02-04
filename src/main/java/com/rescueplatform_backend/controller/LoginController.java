@@ -31,8 +31,9 @@ public class LoginController {
     public RespBean login(@RequestBody AdminLoginParam adminLoginParam, HttpServletRequest request){
 
         //登录验证
-        return adminService.login(adminLoginParam.getUsername()
-                ,adminLoginParam.getPassword(),request);
+        return adminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword()
+                ,adminLoginParam.getCaptcha()
+                ,request);
     }
 
     @ApiOperation(value = "获取当前登录用户的信息")
