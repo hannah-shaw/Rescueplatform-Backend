@@ -1,7 +1,7 @@
 package com.rescueplatform_backend.config.security.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xxxx.server.pojo.RespBean;
+import com.rescueplatform_backend.entity.RespBean;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

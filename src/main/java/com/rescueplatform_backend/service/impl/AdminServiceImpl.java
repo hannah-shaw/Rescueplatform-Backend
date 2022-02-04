@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -39,14 +40,11 @@ import java.util.Map;
 @Service
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements AdminService {
 
-    @Autowired
+    @Resource
     private AdminMapper adminMapper;//配置了扫描包，实际上已经注入了 但是还是爆红，不管
 
     @Autowired
     private UserDetailsService userDetailsService;
-
-    @Autowired
-    private AdminService adminService;
 
     //密码加密
     @Autowired

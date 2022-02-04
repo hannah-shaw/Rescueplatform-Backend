@@ -38,6 +38,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                //放行的资源路径
+                "/login",
+                "/logout",
+                "/css/**",
+                "/js/**",
+                "/index.html",
+                "favicon.ico",
+                "/doc.html",
+                "/captcha",
+                "/webjars/**",
+                "/swagger-resources/**",
+                "/v2/api-docs/**",
+                "/ws/**",
+                "/front"
+        );
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //使用JWT，不需要csrf
