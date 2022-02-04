@@ -9,8 +9,10 @@ import java.util.Collection;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,7 +51,13 @@ public class Admin implements Serializable, UserDetails {
     private String address;
 
     @ApiModelProperty(value = "是否启用")
+    @Getter(AccessLevel.NONE)//加上这个注解，就不会生成该字段的get，set方法
     private Boolean enabled;
+
+    @ApiModelProperty(value = "是否启用")
+    @TableField(exist = false)//告诉mybatis plus 数据库中没有这个自定义的字段
+    private Integer intEnabled;
+
 
     @ApiModelProperty(value = "用户名")
     private String username;
