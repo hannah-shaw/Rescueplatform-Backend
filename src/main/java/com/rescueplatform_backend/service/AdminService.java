@@ -3,6 +3,7 @@ package com.rescueplatform_backend.service;
 import com.rescueplatform_backend.entity.Admin;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rescueplatform_backend.entity.RespBean;
+import com.rescueplatform_backend.entity.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.Authentication;
 
@@ -36,5 +37,12 @@ public interface AdminService extends IService<Admin> {
      * @return
      */
     Admin getAdminByUserName(String username);
+
+    /**
+     * 根据用户id查询角色列表
+     * @param adminId
+     * @return
+     */
+    List<Role> getRoles(Integer adminId);
 
 }

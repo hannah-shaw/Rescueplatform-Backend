@@ -28,10 +28,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AdminService adminService;
+
     @Autowired
     private RestAuthorizationEntryPoint restAuthorizationEntryPoint;
+
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+
+    @Autowired
+    private CustomFilter customFilter;
+
+    @Autowired
+    private CustomUrlDecisionManager customUrlDecisionManager;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws
     Exception {
@@ -55,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-resources/**",
                 "/v2/api-docs/**",
                 "/ws/**",
-                "/front"
+                "/front/**"
         );
     }
 
@@ -75,6 +83,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //除上面外，所有请求都要求认证
                 .anyRequest()
                 .authenticated()
+                //动态权限，获取不同菜单列表
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                        o.setAccessDecisionManager(customUrlDecisionManager);
+                        o.setSecurityMetadataSource(customFilter);
+                        return o;
+                    }
+                })
                 .and()
                 //禁用缓存
                 .headers()
@@ -94,6 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return username -> {
             Admin admin = adminService.getAdminByUserName(username);
             if (admin != null){
+                admin.setRoles(adminService.getRoles(admin.getId()));
                 return admin;
             }
             throw new UsernameNotFoundException("用户名或密码不正确！");

@@ -1,10 +1,12 @@
 package com.rescueplatform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.Mapper;
 import com.rescueplatform_backend.config.security.component.JwtTokenUtils;
 import com.rescueplatform_backend.entity.Admin;
 import com.rescueplatform_backend.entity.AdminRole;
 import com.rescueplatform_backend.entity.RespBean;
+import com.rescueplatform_backend.entity.Role;
 import com.rescueplatform_backend.mapper.AdminMapper;
 import com.rescueplatform_backend.mapper.AdminRoleMapper;
 import com.rescueplatform_backend.mapper.RoleMapper;
@@ -42,6 +44,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Resource
     private AdminMapper adminMapper;//配置了扫描包，实际上已经注入了 但是还是爆红，不管
+
+    @Resource
+    private RoleMapper roleMapper;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -106,6 +111,18 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public Admin getAdminByUserName(String username) {
         //使用MybatisPlus的单个查询方法，selectOne 用.eq 比较方法在匹配查询条件
         return adminMapper.selectOne(new QueryWrapper<Admin>().eq("username", username).eq("enabled", true));
+    }
+
+    /**
+     * 根据用户id查询角色列表
+     *
+     * @param adminId
+     * @return
+     */
+    @Override
+    public List<Role> getRoles(Integer adminId) {
+
+        return roleMapper.getRoles(adminId);
     }
 
 }

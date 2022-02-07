@@ -2,6 +2,9 @@ package com.rescueplatform_backend.mapper;
 
 import com.rescueplatform_backend.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface RoleMapper extends BaseMapper<Role> {
 
+    /**
+     * 根据用户id查询角色列表
+     * @param adminId
+     * @return
+     */
+    List<Role> getRoles(@Param("adminId") Integer adminId);
 }
