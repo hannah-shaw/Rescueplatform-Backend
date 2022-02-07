@@ -50,7 +50,10 @@ public class CodeGenerator {
         gc.setSwagger2(true);
         gc.setServiceName("%sService");
         mpg.setGlobalConfig(gc);
-
+        //xml开启 BaseResultMap
+        gc.setBaseResultMap(true);
+        //xml 开启BaseColumnList
+        gc.setBaseColumnList(true);
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://localhost:3306/rescue_pf?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
