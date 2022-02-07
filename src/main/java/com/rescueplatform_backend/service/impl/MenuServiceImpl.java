@@ -37,7 +37,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
      * @return
      */
     @Override
-    public List<Menu> getMenuByAdminId() {
+    public List<Menu> getMenusByAdminId() {
         //用 security 自带的方法，来获取当前登录用户的基本信息，其中就包括ID
         Integer adminId = ((Admin) SecurityContextHolder
                 .getContext()//获取登录用户全局上下文
@@ -56,5 +56,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             valueOperations.set("menu_"+adminId,menus);
         }
         return menus;
+    }
+
+    /**
+     * 根据角色获取菜单列表
+     * @return
+     */
+    @Override
+    public List<Menu> getMenuRoleList() {
+        return menuMapper.getMenuRoleList();
     }
 }

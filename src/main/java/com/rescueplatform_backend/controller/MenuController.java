@@ -30,8 +30,8 @@ public class MenuController {
 
     @ApiOperation(value = "通过用户ID获取菜单列表")
     @GetMapping("/menu")
-    public List<Menu> getMenuByAdminId(){
+    public List<Menu> getMenusByAdminId(){
 
-        return menuService.getMenuByAdminId();
+        return menuService.getMenusByAdminId();
     }
 }

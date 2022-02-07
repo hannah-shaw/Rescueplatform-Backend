@@ -68,4 +68,8 @@ public class Menu implements Serializable {
     @ApiModelProperty(value = "子菜单")
     @TableField(exist = false)//告诉mybatis plus 数据库中没有这个自定义的字段
     private List<Menu> children;
+
+    @ApiModelProperty(value = "角色列表")
+    @TableField(exist = false)//告诉mybatis plus 数据库中没有这个自定义的字段
+    private List<Role> roles;
 }
