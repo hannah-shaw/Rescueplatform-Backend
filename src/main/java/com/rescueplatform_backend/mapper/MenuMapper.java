@@ -26,4 +26,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      */
     List<Menu> getMenuRoleList();
+
+    List<Menu> getAllMenus();
 }

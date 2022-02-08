@@ -1,6 +1,9 @@
 package com.rescueplatform_backend.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.rescueplatform_backend.entity.Menu;
+import com.rescueplatform_backend.entity.MenuRole;
 import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.Role;
 import com.rescueplatform_backend.service.MenuRoleService;
@@ -79,4 +82,26 @@ public class PermissionController {
         return RespBean.error("删除失败！");
     }
 
+    @ApiOperation("获取所有菜单")
+    @GetMapping("/menus")
+    public List<Menu> getAllMenus(){
+
+        return  menuService.getAllMenus();
+    }
+
+    @ApiOperation("根据角色ID查找菜单ID")
+    @GetMapping("/mid")
+    public List<Integer> getByIdMenus(@RequestParam("rid") Long rid){
+        List<MenuRole> menuRoles = menuRoleService.list(new QueryWrapper<MenuRole>().eq("rid", rid));
+        Stream<Integer> integerStream = menuRoles.stream().map(MenuRole::getMid);
+        List<Integer> collect = integerStream.collect(Collectors.toList());
+        return collect;
+    }
+
+    @ApiOperation("更新角色菜单")
+    @PutMapping("/updatemenus")
+    public RespBean updateMenuRole(@RequestParam("rid")Integer rid ,
+                                   @RequestParam("mids")List<Integer> mids){
+        return menuRoleService.updateMenuRole(rid,mids);
+    }
 }
