@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rescueplatform_backend.mapper.DepartmentMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rescueplatform_backend.entity.Department">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="parentId" property="parentId" />
+        <result column="depPath" property="depPath" />
+        <result column="enabled" property="enabled" />
+        <result column="isParent" property="isParent" />
+    </resultMap>
 
+    <resultMap id="DepartmentWithChildren" type="com.rescueplatform_backend.entity.Department" extends="BaseResultMap">
+        <!--递归查询，调用查询方法后，返回一个id，column="id" ，用这个ID在调用该方法，查询所有数据-->
+        <collection property="children" ofType="com.rescueplatform_backend.entity.Department"
+                    select="com.rescueplatform_backend.mapper.DepartmentMapper.getAllInFo" column="id">
+
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, parentId, depPath, enabled, isParent
+    </sql>
+
+    <!--删除部门-->
+    <select id="deleteDept" statementType="CALLABLE">
+        call deleteDep(#{id,mode=IN,jdbcType=INTEGER},#{result,mode=OUT,jdbcType=INTEGER})
+    </select>
+
+    <!--添加部门-->
+    <select id="addDept" statementType="CALLABLE">
+        call addDep
+            (#{name,mode=IN,jdbcType=VARCHAR},#{parentId,mode=IN,jdbcType=INTEGER},
+            #{enabled,mode=IN,jdbcType=BOOLEAN},#{result,mode=OUT,jdbcType=INTEGER},
+            #{id,mode=OUT,jdbcType=INTEGER})
+    </select>
+
+    <!--获取所有部门-->
+    <select id="getAllInFo" resultMap="DepartmentWithChildren">
+        select
+        <include refid="Base_Column_List" />
+        from t_department
+        where parentId = #{parentId}
+    </select>
 </mapper>
