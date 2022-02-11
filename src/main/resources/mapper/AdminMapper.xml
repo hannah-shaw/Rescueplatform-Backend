@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rescueplatform_backend.mapper.AdminMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rescueplatform_backend.entity.Admin">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="telephone" property="telephone"/>
+        <result column="address" property="address"/>
+        <result column="enabled" property="enabled"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="userFace" property="userFace"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, phone, telephone, address, enabled, username, password, userFace, remark
+    </sql>
+
+
+    <resultMap id="AdminWithRole" type="com.rescueplatform_backend.entity.Admin" extends="BaseResultMap">
+        <collection property="roles" ofType="com.rescueplatform_backend.entity.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="rnameZh" property="nameZh"/>
+        </collection>
+    </resultMap>
+    <!--id : 当前登录用户ID，不能查到自己 a.id != #{id}-->
+    <select id="getAllAdmins" resultMap="AdminWithRole">
+        SELECT
+        a.*,
+        r.id rid,
+        r.`name` rname,
+        r.nameZh rnameZh
+        FROM
+        t_admin a
+        INNER JOIN t_admin_role ar ON a.id = ar.adminId
+        INNER JOIN t_role r ON r.id = ar.rid
+        WHERE
+        a.id != #{id}
+        <if test="keywords != null and keywords != ''">
+            AND a.`name` LIKE concat('%', #{keywords}, '%')
+        </if>
+        ORDER BY
+        a.id;
+
+    </select>
+
+    <resultMap id="intEnabled" type="com.rescueplatform_backend.entity.Admin" extends="BaseResultMap">
+        <result column="enabled" property="intEnabled" />
+    </resultMap>
+    <select id="getAdmin" parameterType="java.lang.String" resultMap="intEnabled">
+        SELECT
+            *
+        FROM
+            t_admin
+        WHERE
+            username = #{username};
+    </select>
 </mapper>

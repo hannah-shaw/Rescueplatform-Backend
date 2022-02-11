@@ -12,6 +12,8 @@ import com.rescueplatform_backend.mapper.AdminRoleMapper;
 import com.rescueplatform_backend.mapper.RoleMapper;
 import com.rescueplatform_backend.service.AdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.rescueplatform_backend.utils.AdminUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,6 +64,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     //将配置文件中存的值取过来
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+
+    @Resource
+    private AdminRoleMapper adminRoleMapper;
 
 
     /**
@@ -123,6 +128,35 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public List<Role> getRoles(Integer adminId) {
 
         return roleMapper.getRoles(adminId);
+    }
+
+    /**
+     * 获取所有操作员
+     *
+     * @param keywords
+     * @return
+     */
+    @Override
+    public List<Admin> getAllAdmins(String keywords) {
+
+        return adminMapper.getAllAdmins(AdminUtils.getCurrentAdmin().getId(), keywords);
+    }
+
+    /**
+     * 更新操作员角色
+     *
+     * @param adminId
+     * @param rids
+     * @return
+     */
+    @Override
+    @Transactional
+    public RespBean updateAdminRole(Integer adminId, List<Integer> rids) {
+        adminRoleMapper.delete(new QueryWrapper<AdminRole>().eq("adminId", adminId));
+
+        Integer result = adminRoleMapper.addAdminRole(adminId, rids);
+        if (result == rids.size()) return RespBean.success("更新成功！");
+        return RespBean.error("更新失败！");
     }
 
 }
