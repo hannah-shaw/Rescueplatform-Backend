@@ -6,11 +6,14 @@ import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -30,6 +33,7 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "员工编号")
+//    @Excel(name = "员工编号")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -40,25 +44,23 @@ public class Employee implements Serializable {
     private String gender;
 
     @ApiModelProperty(value = "出生日期")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
     @ApiModelProperty(value = "身份证号")
-    @TableField("idCard")
     private String idCard;
 
     @ApiModelProperty(value = "婚姻状况")
     private String wedlock;
 
     @ApiModelProperty(value = "民族")
-    @TableField("nationId")
     private Integer nationId;
 
     @ApiModelProperty(value = "籍贯")
-    @TableField("nativePlace")
     private String nativePlace;
 
     @ApiModelProperty(value = "政治面貌")
-    @TableField("politicId")
     private Integer politicId;
 
     @ApiModelProperty(value = "邮箱")
@@ -71,23 +73,18 @@ public class Employee implements Serializable {
     private String address;
 
     @ApiModelProperty(value = "所属部门")
-    @TableField("departmentId")
     private Integer departmentId;
 
     @ApiModelProperty(value = "职称ID")
-    @TableField("jobLevelId")
     private Integer jobLevelId;
 
     @ApiModelProperty(value = "职位ID")
-    @TableField("posId")
     private Integer posId;
 
     @ApiModelProperty(value = "聘用形式")
-    @TableField("engageForm")
     private String engageForm;
 
     @ApiModelProperty(value = "最高学历")
-    @TableField("tiptopDegree")
     private String tiptopDegree;
 
     @ApiModelProperty(value = "所属专业")
@@ -97,44 +94,70 @@ public class Employee implements Serializable {
     private String school;
 
     @ApiModelProperty(value = "入职日期")
-    @TableField("beginDate")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate beginDate;
 
     @ApiModelProperty(value = "在职状态")
-    @TableField("workState")
     private String workState;
 
     @ApiModelProperty(value = "工号")
-    @TableField("workID")
     private String workID;
 
+    // suffix = "年" 导入该字段数据时最后面加一个年字
     @ApiModelProperty(value = "合同期限")
-    @TableField("contractTerm")
     private Double contractTerm;
 
     @ApiModelProperty(value = "转正日期")
-    @TableField("conversionTime")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate conversionTime;
 
     @ApiModelProperty(value = "离职日期")
-    @TableField("notWorkDate")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate notWorkDate;
 
     @ApiModelProperty(value = "合同起始日期")
-    @TableField("beginContract")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate beginContract;
 
     @ApiModelProperty(value = "合同终止日期")
-    @TableField("endContract")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endContract;
 
     @ApiModelProperty(value = "工龄")
-    @TableField("workAge")
+//    @Excel(name = "工龄")
     private Integer workAge;
 
     @ApiModelProperty(value = "工资账套ID")
-    @TableField("salaryId")
     private Integer salaryId;
+
+    @ApiModelProperty(value = "民族")
+    @TableField(exist = false)
+    private Nation nation;
+
+    @ApiModelProperty(value = "政治面貌")
+    @TableField(exist = false)
+    private PoliticsStatus politicsStatus;
+
+    @ApiModelProperty(value = "部门")
+    @TableField(exist = false)
+    private Department department;
+
+    @ApiModelProperty(value = "职称")
+    @TableField(exist = false)
+    private Joblevel joblevel;
+
+    @ApiModelProperty(value = "岗位")
+    @TableField(exist = false)
+    private Position position;
+
+    @ApiModelProperty(value = "账套信息")
+    @TableField(exist = false)
+    private Salary s;
 
 
 }
