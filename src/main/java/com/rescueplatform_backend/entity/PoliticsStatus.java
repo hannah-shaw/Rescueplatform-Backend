@@ -1,5 +1,6 @@
 package com.rescueplatform_backend.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,6 +10,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * <p>
@@ -32,6 +35,8 @@ public class PoliticsStatus implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "政治面貌")
+    @Excel(name = "政治面貌")
+    @NotBlank
     private String name;
 
 

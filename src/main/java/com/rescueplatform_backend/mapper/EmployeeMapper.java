@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -30,4 +31,11 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      * @return
      */
     String getMaxWorkID();
+
+    /**
+     * 导出员工表格
+     * @param id
+     * @return
+     */
+    List<Employee> getEmployeeList(@Param("id") Integer id);
 }

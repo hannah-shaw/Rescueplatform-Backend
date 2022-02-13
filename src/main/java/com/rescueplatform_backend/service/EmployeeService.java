@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.RespPageBean;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
 /**
@@ -42,4 +43,10 @@ public interface EmployeeService extends IService<Employee> {
      * @param employee
      */
     RespBean addEmp(Employee employee);
+
+    /**
+     * 导出员工表格
+     * @param id
+     */
+    void getEmployee(Integer id, HttpServletResponse response);
 }

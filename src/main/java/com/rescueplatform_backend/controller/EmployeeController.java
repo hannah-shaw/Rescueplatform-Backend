@@ -1,13 +1,21 @@
 package com.rescueplatform_backend.controller;
 
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import com.rescueplatform_backend.entity.*;
 import com.rescueplatform_backend.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -125,4 +133,11 @@ public class EmployeeController {
         }
         return RespBean.error("删除失败！");
     }
+
+    @ApiOperation(value = "导出员工表格")
+    @GetMapping(value = "/export",produces = "application/octet-stream")
+    public void exportEmp(HttpServletResponse response){
+        employeeService.getEmployee(null,response);
+    }
+
 }
