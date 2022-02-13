@@ -24,4 +24,10 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      */
     IPage<Employee> getEmployeePage(@Param("page") Page<Employee> page, @Param("employee") Employee employee,
                                     @Param("startDate") String startDate, @Param("endDate") String endDate);
+
+    /**
+     * 获取员工最大编号
+     * @return
+     */
+    String getMaxWorkID();
 }

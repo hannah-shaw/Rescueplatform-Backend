@@ -126,4 +126,12 @@
             order by e.id
         </where>
     </select>
+
+    <!--获取员工最大编号-->
+    <select id="getMaxWorkID" resultType="string">
+        SELECT
+            max( workID )
+        FROM
+            t_employee;
+    </select>
 </mapper>
