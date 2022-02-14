@@ -168,4 +168,26 @@
         ORDER BY
         e.id
     </select>
+
+    <!--查询一些列添加需要的ID-->
+    <select id="getIdSelectNationByName" parameterType="Map" resultMap="EmployeeInfo">
+        SELECT
+            n.id nid,
+            p.id pid,
+            d.id did,
+            j.id jid,
+            pt.id ptid
+        FROM
+            t_nation n,
+            t_politics_status p,
+            t_department d,
+            t_joblevel j,
+            t_position pt
+        WHERE
+            n.`name` = #{nationName}
+          AND p.`name` = #{politicsStatusName}
+          AND d.`name` = #{departmentName}
+          AND j.`name` = #{joblevelName}
+          AND pt.`name` = #{positionName}
+    </select>
 </mapper>

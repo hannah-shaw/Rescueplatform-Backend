@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -38,4 +39,11 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      * @return
      */
     List<Employee> getEmployeeList(@Param("id") Integer id);
+
+    /**
+     * 查询一些列添加需要的ID
+     * @param employeeMap
+     * @return
+     */
+    Employee getIdSelectNationByName(Map<String,String> employeeMap);
 }

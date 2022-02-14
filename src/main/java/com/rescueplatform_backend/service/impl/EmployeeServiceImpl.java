@@ -24,6 +24,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -156,5 +157,11 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public Employee getIdSelectNationByName(Map<String,String> employeeMap) {
+        Employee idSelectNationByName = employeeMapper.getIdSelectNationByName(employeeMap);
+        return idSelectNationByName;
     }
 }

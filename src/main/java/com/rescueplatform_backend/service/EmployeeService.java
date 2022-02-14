@@ -7,6 +7,7 @@ import com.rescueplatform_backend.entity.RespPageBean;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
+import java.util.Map;
 
 /**
  * <p>
@@ -49,4 +50,11 @@ public interface EmployeeService extends IService<Employee> {
      * @param id
      */
     void getEmployee(Integer id, HttpServletResponse response);
+
+    /**
+     * 获取员工添加所需要的各种id
+     * @param employeeMap
+     * @return
+     */
+    Employee getIdSelectNationByName(Map<String,String> employeeMap);
 }

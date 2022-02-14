@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
@@ -22,7 +24,8 @@ import javax.validation.constraints.NotBlank;
  * @since 2022-02-03
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false,of = "name")
 @Accessors(chain = true)
 @TableName("t_politics_status")
 @ApiModel(value="PoliticsStatus对象", description="")
