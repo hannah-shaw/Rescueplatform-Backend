@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.rescueplatform_backend.config.CustomAuthorityDeserializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
@@ -81,6 +83,8 @@ public class Admin implements Serializable, UserDetails {
 
 
     @Override
+    //自定义解析器
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = roles
                 .stream()

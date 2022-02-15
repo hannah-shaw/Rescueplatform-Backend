@@ -159,4 +159,30 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         return RespBean.error("更新失败！");
     }
 
+    /**
+     * 个人中心 修改用户密码
+     *
+     * @param oldPass
+     * @param pass
+     * @param adminId
+     * @return
+     */
+    @Override
+    public RespBean updateAdminPassWord(String oldPass, String pass, Integer adminId) {
+        Admin admin = adminMapper.selectById(adminId);
+        // 密码是加密过的
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        // 比较旧密码是否和未更新的数据库密码是否一样，不一样则不让修改
+        if (encoder.matches(oldPass, admin.getPassword())) {
+            // 设置新密码，加密
+            admin.setPassword(encoder.encode(pass));
+            int result = adminMapper.updateById(admin);
+            System.out.println(result);
+            if (result == 1) {
+                return RespBean.success("更新成功!");
+            }
+        }
+        return RespBean.error("更新失败！");
+    }
+
 }
