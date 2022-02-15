@@ -127,6 +127,12 @@
             <artifactId>easypoi-spring-boot-starter</artifactId>
             <version>4.2.0</version>
         </dependency>
+
+        <!--websocket 一般用于即时聊天，只需要建立一次连接，不需要反复发送请求去获取数据-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
