@@ -30,6 +30,9 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+  configuration:
+    # 自动驼峰命名
+    map-underscore-to-camel-case: false
 server:
   port: 8081
 
