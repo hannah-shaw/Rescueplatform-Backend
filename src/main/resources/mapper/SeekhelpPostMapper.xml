@@ -20,12 +20,19 @@
         <result column="city" property="city" />
         <result column="district" property="district" />
         <result column="createtime" property="createtime" />
-        <result column="modifytime" property="modifytime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, posx, posy, phone, name, discription, views, safed, checked, people, child, old, province, city, district, createtime, modifytime
+        id, posx, posy, phone, name, discription, views, safed, checked, people, child, old, province, city, district, createtime
     </sql>
+
+    <!--分页获取所有求助-->
+    <select id="getSeekPage" resultMap="BaseResultMap">
+    select
+    s.*
+    from
+    t_seekhelp_post s
+    </select>
 
 </mapper>

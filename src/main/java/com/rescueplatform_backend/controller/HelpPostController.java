@@ -3,6 +3,7 @@ package com.rescueplatform_backend.controller;
 
 import com.rescueplatform_backend.entity.HelpPost;
 import com.rescueplatform_backend.entity.RespBean;
+import com.rescueplatform_backend.entity.RespPageBean;
 import com.rescueplatform_backend.entity.SeekhelpPost;
 import com.rescueplatform_backend.service.HelpPostService;
 import com.rescueplatform_backend.service.SeekhelpPostService;
@@ -29,6 +30,15 @@ import java.util.List;
 public class HelpPostController {
     @Autowired
     private HelpPostService HelpPostService;
+
+    @ApiOperation(value = "获取所有帮助信息(分页)")
+    @GetMapping("/listpage")
+    public RespPageBean getHelpPost(@RequestParam(defaultValue = "1") Integer currentPage,
+                                    @RequestParam(defaultValue = "10") Integer size,
+                                    HelpPost helpPost) {
+        return HelpPostService.getHelpPostList(currentPage, size, helpPost);
+
+    }
 
     @ApiOperation(value = "获取所有帮助信息")
     @GetMapping("/list")

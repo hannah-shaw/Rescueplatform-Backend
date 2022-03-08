@@ -23,4 +23,12 @@
         id, posx, posy, phone, name, discription, views, checked, province, city, district, createtime
     </sql>
 
+    <!--分页获取所有求助-->
+    <select id="getHelpPage" resultMap="BaseResultMap">
+        select
+            h.*
+        from
+            t_help_post h
+    </select>
+
 </mapper>

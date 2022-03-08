@@ -1,7 +1,9 @@
 package com.rescueplatform_backend.controller;
 
 
+import com.rescueplatform_backend.entity.Employee;
 import com.rescueplatform_backend.entity.RespBean;
+import com.rescueplatform_backend.entity.RespPageBean;
 import com.rescueplatform_backend.entity.SeekhelpPost;
 import com.rescueplatform_backend.service.SeekhelpPostService;
 import io.swagger.annotations.Api;
@@ -27,6 +29,15 @@ import java.util.List;
 public class SeekhelpPostController {
     @Autowired
     private SeekhelpPostService SeekhelpPostService;
+
+    @ApiOperation(value = "获取所有求助信息(分页)")
+    @GetMapping("/listpage")
+    public RespPageBean getSeekPost(@RequestParam(defaultValue = "1") Integer currentPage,
+                                    @RequestParam(defaultValue = "10") Integer size,
+                                    SeekhelpPost seekhelpPost) {
+        return SeekhelpPostService.getSeekPostList(currentPage, size, seekhelpPost);
+
+    }
 
     @ApiOperation(value = "获取所有求助信息")
     @GetMapping("/list")

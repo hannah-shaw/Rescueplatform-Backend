@@ -82,8 +82,5 @@ public class SeekhelpPost implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDate createtime;
 
-    @ApiModelProperty(value = "修改时间")
-    private LocalDate modifytime;
-
 
 }
