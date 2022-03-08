@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author hannah
- * @since 2022-02-03
+ * @since 2022-03-08
  */
 public interface HelpPostMapper extends BaseMapper<HelpPost> {
 

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author hannah
- * @since 2022-02-03
+ * @since 2022-03-08
  */
 public interface HelpPostService extends IService<HelpPost> {
 

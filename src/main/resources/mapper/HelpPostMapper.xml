@@ -2,4 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rescueplatform_backend.mapper.HelpPostMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rescueplatform_backend.entity.HelpPost">
+        <id column="id" property="id" />
+        <result column="posx" property="posx" />
+        <result column="posy" property="posy" />
+        <result column="phone" property="phone" />
+        <result column="name" property="name" />
+        <result column="discription" property="discription" />
+        <result column="views" property="views" />
+        <result column="checked" property="checked" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="district" property="district" />
+        <result column="createtime" property="createtime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, posx, posy, phone, name, discription, views, checked, province, city, district, createtime
+    </sql>
+
 </mapper>

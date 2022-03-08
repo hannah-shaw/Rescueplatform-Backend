@@ -4,8 +4,12 @@ import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,7 +22,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author hannah
- * @since 2022-02-03
+ * @since 2022-03-07
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -75,10 +79,11 @@ public class SeekhelpPost implements Serializable {
     private String district;
 
     @ApiModelProperty(value = "发布时间")
-    private LocalDateTime createtime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private LocalDate createtime;
 
     @ApiModelProperty(value = "修改时间")
-    private LocalDateTime modifytime;
+    private LocalDate modifytime;
 
 
 }
