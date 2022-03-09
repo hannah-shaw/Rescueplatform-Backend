@@ -1,6 +1,7 @@
 package com.rescueplatform_backend.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rescueplatform_backend.entity.HelpPost;
 import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.RespPageBean;
@@ -47,7 +48,32 @@ public class HelpPostController {
         return HelpPostService.list();
     }
 
-    @ApiOperation(value = "添加求助信息")
+    @ApiOperation(value = "获取所有帮助信息数量")
+    @GetMapping("/listNum")
+    public int getAllHelpPostNum(){
+
+        return HelpPostService.list().size();
+    }
+
+    @ApiOperation(value = "根据传入id获取帮助信息")
+    @GetMapping("/postById")
+    public HelpPost getHelpPostById(@RequestParam("id") Integer id){
+        /**
+        QueryWrapper<HelpPost> wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
+        wrapper.eq("id",id);
+        HelpPost helpPost = HelpPostService.getOne(wrapper);
+         **/
+        HelpPost helpPost = HelpPostService.getById(id);
+        //查询一次访问量+1
+        int viewBef = helpPost.getViews();
+        viewBef++;
+        helpPost.setViews(viewBef);
+        HelpPostService.updateById(helpPost);
+        helpPost = HelpPostService.getById(id);
+        return helpPost;
+    }
+
+    @ApiOperation(value = "添助帮助信息")
     @PostMapping("/add")
     public RespBean addPosition(@RequestBody HelpPost helpPost){
         helpPost.setCreatetime(LocalDate.now());

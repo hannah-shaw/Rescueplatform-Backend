@@ -3,6 +3,7 @@ package com.rescueplatform_backend.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rescueplatform_backend.entity.HelpPost;
+import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.RespPageBean;
 import com.rescueplatform_backend.mapper.HelpPostMapper;
 import com.rescueplatform_backend.service.HelpPostService;
@@ -41,4 +42,5 @@ public class HelpPostServiceImpl extends ServiceImpl<HelpPostMapper, HelpPost> i
         RespPageBean respPageBean = new RespPageBean(HelpPage.getTotal(), HelpPage.getRecords());
         return respPageBean;
     }
+
 }

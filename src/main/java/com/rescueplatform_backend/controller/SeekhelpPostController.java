@@ -1,10 +1,12 @@
 package com.rescueplatform_backend.controller;
 
 
-import com.rescueplatform_backend.entity.Employee;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.rescueplatform_backend.entity.HelpPost;
 import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.RespPageBean;
 import com.rescueplatform_backend.entity.SeekhelpPost;
+import com.rescueplatform_backend.service.HelpPostService;
 import com.rescueplatform_backend.service.SeekhelpPostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,6 +46,26 @@ public class SeekhelpPostController {
     public List<SeekhelpPost> getAllSeekPost(){
 
         return SeekhelpPostService.list();
+    }
+
+    @ApiOperation(value = "获取所有求助信息数量")
+    @GetMapping("/listNum")
+    public int getAllSeekPostNum(){
+
+        return SeekhelpPostService.list().size();
+    }
+
+    @ApiOperation(value = "根据传入id获取求助信息")
+    @GetMapping("/postById")
+    public SeekhelpPost getHelpPostById(@RequestParam("id") String id){
+        SeekhelpPost seekhelpPost = SeekhelpPostService.getById(id);
+        //查询一次访问量+1
+        int viewBef = seekhelpPost.getViews();
+        viewBef++;
+        seekhelpPost.setViews(viewBef);
+        SeekhelpPostService.updateById(seekhelpPost);
+        seekhelpPost = SeekhelpPostService.getById(id);
+        return seekhelpPost;
     }
 
     @ApiOperation(value = "添加求助信息")

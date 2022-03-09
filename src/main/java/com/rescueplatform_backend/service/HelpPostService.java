@@ -2,6 +2,7 @@ package com.rescueplatform_backend.service;
 
 import com.rescueplatform_backend.entity.HelpPost;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.RespPageBean;
 import com.rescueplatform_backend.entity.SeekhelpPost;
 
@@ -22,4 +23,5 @@ public interface HelpPostService extends IService<HelpPost> {
      * @return
      */
     RespPageBean getHelpPostList(Integer currentPage, Integer size, HelpPost helpPost);
+
 }
