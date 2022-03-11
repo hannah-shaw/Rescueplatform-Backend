@@ -33,6 +33,23 @@
     s.*
     from
     t_seekhelp_post s
+        <where>
+            <if test="seekhelpPost.name != null and seekhelpPost.name != ''">
+                and s.`name` LIKE CONCAT('%',#{seekhelpPost.name},'%')
+            </if>
+            <if test="seekhelpPost.province != null and seekhelpPost.province != ''">
+                and s.`province` LIKE CONCAT('%',#{seekhelpPost.province},'%')
+            </if>
+            <if test="seekhelpPost.city != null and seekhelpPost.city != ''">
+                and s.`city` LIKE CONCAT('%',#{seekhelpPost.city},'%')
+            </if>
+            <if test="seekhelpPost.checked != null and seekhelpPost.checked != ''">
+                and s.checked = #{seekhelpPost.checked}
+            </if>
+            <if test="seekhelpPost.safed != null and seekhelpPost.safed != ''">
+                and s.safed = #{seekhelpPost.safed}
+            </if>
+        </where>
     </select>
 
 </mapper>

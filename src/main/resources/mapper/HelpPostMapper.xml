@@ -29,6 +29,21 @@
             h.*
         from
             t_help_post h
+
+        <where>
+            <if test="helpPost.name != null and helpPost.name != ''">
+                and h.`name` LIKE CONCAT('%',#{helpPost.name},'%')
+            </if>
+            <if test="helpPost.province != null and helpPost.province != ''">
+                and h.`province` LIKE CONCAT('%',#{helpPost.province},'%')
+            </if>
+            <if test="helpPost.city != null and helpPost.city != ''">
+                and h.`city` LIKE CONCAT('%',#{helpPost.city},'%')
+            </if>
+            <if test="helpPost.checked != null and helpPost.checked != ''">
+                and h.checked = #{helpPost.checked}
+            </if>
+        </where>
     </select>
 
 </mapper>

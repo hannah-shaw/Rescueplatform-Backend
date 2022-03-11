@@ -80,11 +80,55 @@ public class SeekhelpPostController {
 
     @ApiOperation(value = "更新求助信息")
     @PutMapping("/update")
-    public RespBean updatePosition(@RequestBody SeekhelpPost seekhelpPost){
+    public RespBean updateSeekPost(@RequestBody SeekhelpPost seekhelpPost){
         if (SeekhelpPostService.updateById(seekhelpPost)){
             return RespBean.success("更新成功!");
         }
         return RespBean.error("更新失败！");
+    }
+
+    @ApiOperation(value = "核实求助信息")
+    @PutMapping("/check")
+    public RespBean checkSeekPost(@RequestParam("id") String id){
+        SeekhelpPost seekhelpPost= SeekhelpPostService.getById(id);
+        seekhelpPost.setChecked(true);
+        if (SeekhelpPostService.updateById(seekhelpPost)){
+            return RespBean.success("核实成功!");
+        }
+        return RespBean.error("核实失败！");
+    }
+
+    @ApiOperation(value = "求助确认安全")
+    @PutMapping("/safe")
+    public RespBean safeSeekPost(@RequestParam("id") String id){
+        SeekhelpPost seekhelpPost= SeekhelpPostService.getById(id);
+        seekhelpPost.setSafed(true);
+        if (SeekhelpPostService.updateById(seekhelpPost)){
+            return RespBean.success("确认成功!");
+        }
+        return RespBean.error("确认失败！");
+    }
+
+    @ApiOperation(value = "取消核实求助信息")
+    @PutMapping("/unCheck")
+    public RespBean unCheckSeekPost(@RequestParam("id") String id){
+        SeekhelpPost seekhelpPost= SeekhelpPostService.getById(id);
+        seekhelpPost.setChecked(false);
+        if (SeekhelpPostService.updateById(seekhelpPost)){
+            return RespBean.success("取消核实成功!");
+        }
+        return RespBean.error("取消核实失败！");
+    }
+
+    @ApiOperation(value = "取消求助确认安全")
+    @PutMapping("/unSafe")
+    public RespBean unSafeSeekPost(@RequestParam("id") String id){
+        SeekhelpPost seekhelpPost= SeekhelpPostService.getById(id);
+        seekhelpPost.setSafed(false);
+        if (SeekhelpPostService.updateById(seekhelpPost)){
+            return RespBean.success("取消确认成功!");
+        }
+        return RespBean.error("取消确认失败！");
     }
 
     @ApiOperation(value = "删除求助信息")

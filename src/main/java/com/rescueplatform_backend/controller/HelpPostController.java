@@ -92,6 +92,28 @@ public class HelpPostController {
         return RespBean.error("更新失败！");
     }
 
+    @ApiOperation(value = "核实帮助信息")
+    @PutMapping("/check")
+    public RespBean checkHelpPost(@RequestParam("id") String id){
+        HelpPost helpPost= HelpPostService.getById(id);
+        helpPost.setChecked(true);
+        if (HelpPostService.updateById(helpPost)){
+            return RespBean.success("核实成功!");
+        }
+        return RespBean.error("核实失败！");
+    }
+
+    @ApiOperation(value = "取消核实帮助信息")
+    @PutMapping("/unCheck")
+    public RespBean unCheckHelpPost(@RequestParam("id") String id){
+        HelpPost helpPost= HelpPostService.getById(id);
+        helpPost.setChecked(false);
+        if (HelpPostService.updateById(helpPost)){
+            return RespBean.success("取消核实成功!");
+        }
+        return RespBean.error("取消核实失败！");
+    }
+
     @ApiOperation(value = "删除帮助信息")
     @DeleteMapping("/delete")
     public RespBean deletePosition(@RequestParam("id") Integer id){
