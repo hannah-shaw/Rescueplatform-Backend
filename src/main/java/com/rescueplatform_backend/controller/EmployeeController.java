@@ -36,7 +36,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/employee/basic")
-@Api(value = "员工管理", tags = "员工管理")
+@Api(value = "队员管理", tags = "队员管理")
 public class EmployeeController {
 
     @Autowired
@@ -57,7 +57,7 @@ public class EmployeeController {
     @Autowired
     private DepartmentService departmentService;
 
-    @ApiOperation(value = "获取所有员工(分页)")
+    @ApiOperation(value = "获取所有队员(分页)")
     @GetMapping("/list")
     public RespPageBean getEmployee(@RequestParam(defaultValue = "1") Integer currentPage,
                                     @RequestParam(defaultValue = "10") Integer size,
@@ -116,14 +116,14 @@ public class EmployeeController {
         return employeeService.getMaxWorkID2();
     }
 
-    @ApiOperation(value = "添加员工")
+    @ApiOperation(value = "添加队员")
     @PostMapping("/addEmp")
     public RespBean addEmp(@RequestBody Employee employee){
         RespBean bean = employeeService.addEmp(employee);
         return bean;
     }
 
-    @ApiOperation(value = "更新员工")
+    @ApiOperation(value = "更新队员")
     @PutMapping("/update")
     public RespBean updateEmp(@RequestBody Employee employee){
         if (employeeService.updateById(employee)){
@@ -132,7 +132,7 @@ public class EmployeeController {
         return RespBean.error("更新失败");
     }
 
-    @ApiOperation(value = "删除员工")
+    @ApiOperation(value = "删除队员")
     @DeleteMapping("/delete/{id}")
     public RespBean deleteEmp(@PathVariable Integer id){
         if (employeeService.removeById(id)){
@@ -141,13 +141,13 @@ public class EmployeeController {
         return RespBean.error("删除失败！");
     }
 
-    @ApiOperation(value = "导出员工表格")
+    @ApiOperation(value = "导出队员表格")
     @GetMapping(value = "/export",produces = "application/octet-stream")
     public void exportEmp(HttpServletResponse response){
         employeeService.getEmployee(null,response);
     }
 
-    @ApiOperation(value = "导入员工信息")
+    @ApiOperation(value = "导入队员信息")
     @PostMapping("/import")
     public RespBean importEmp(MultipartFile multipartFile){
         ImportParams params = new ImportParams();

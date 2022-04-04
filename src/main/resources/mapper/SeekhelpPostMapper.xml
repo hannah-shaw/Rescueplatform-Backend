@@ -50,6 +50,7 @@
                 and s.safed = #{seekhelpPost.safed}
             </if>
         </where>
+    order by s.id desc
     </select>
 
 </mapper>

@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public interface EmployeeMapper extends BaseMapper<Employee> {
     /**
-     * 分页获取员工列表
+     * 分页获取队员列表
      * @param page
      * @param employee
      */
@@ -28,13 +28,13 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
                                     @Param("startDate") String startDate, @Param("endDate") String endDate);
 
     /**
-     * 获取员工最大编号
+     * 获取队员最大编号
      * @return
      */
     String getMaxWorkID();
 
     /**
-     * 导出员工表格
+     * 导出队员表格
      * @param id
      * @return
      */

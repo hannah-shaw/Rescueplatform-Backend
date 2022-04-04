@@ -33,7 +33,7 @@ public class SalaryAdjust implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "员工ID")
+    @ApiModelProperty(value = "队员ID")
     private Integer eid;
 
     @ApiModelProperty(value = "调薪日期")

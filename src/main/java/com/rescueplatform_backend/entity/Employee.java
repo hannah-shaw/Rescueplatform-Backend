@@ -36,13 +36,13 @@ public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "员工编号")
-//    @Excel(name = "员工编号")
+    @ApiModelProperty(value = "队员编号")
+//    @Excel(name = "队员编号")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "员工姓名")
-    @Excel(name = "员工姓名")
+    @ApiModelProperty(value = "队员姓名")
+    @Excel(name = "队员姓名")
     @NotBlank
     private String name;
 

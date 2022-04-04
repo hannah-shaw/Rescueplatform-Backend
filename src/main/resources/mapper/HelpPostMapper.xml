@@ -43,7 +43,10 @@
             <if test="helpPost.checked != null and helpPost.checked != ''">
                 and h.checked = #{helpPost.checked}
             </if>
+
         </where>
+        order by h.id desc
     </select>
+
 
 </mapper>

@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public interface EmployeeService extends IService<Employee> {
     /**
-     * 分页获取员工列表
+     * 分页获取队员列表
      * @param currentPage
      * @param size
      * @param employee
@@ -40,19 +40,19 @@ public interface EmployeeService extends IService<Employee> {
     RespBean getMaxWorkID2();
 
     /**
-     * 添加员工
+     * 添加队员
      * @param employee
      */
     RespBean addEmp(Employee employee);
 
     /**
-     * 导出员工表格
+     * 导出队员表格
      * @param id
      */
     void getEmployee(Integer id, HttpServletResponse response);
 
     /**
-     * 获取员工添加所需要的各种id
+     * 获取队员添加所需要的各种id
      * @param employeeMap
      * @return
      */

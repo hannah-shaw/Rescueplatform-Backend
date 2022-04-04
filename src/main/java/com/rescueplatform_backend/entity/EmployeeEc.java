@@ -33,7 +33,7 @@ public class EmployeeEc implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "员工编号")
+    @ApiModelProperty(value = "队员编号")
     private Integer eid;
 
     @ApiModelProperty(value = "奖罚日期")

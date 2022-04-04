@@ -40,7 +40,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     private EmployeeMapper employeeMapper;
 
     /**
-     * 分页获取员工列表
+     * 分页获取队员列表
      *
      * @param currentPage 当前页
      * @param size        页面条数
@@ -64,30 +64,30 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      */
     @Override
     public RespBean getMaxWorkID() {
-        // 获取员工编号最大值
+        // 获取队员编号最大值
         String maxWorkID = employeeMapper.getMaxWorkID();
         if (maxWorkID == null || maxWorkID.equals("")){
             maxWorkID = "0001";
         }
-        //转换成 integer 将最大的 员工id 加1
+        //转换成 integer 将最大的 队员id 加1
         String max = "1" + maxWorkID;
         Integer i1 = Integer.parseInt(max) + 1;
 
         //再次转换为 String 类型, 返回前端，调下一个接口将 String 类型的编号存入数据库
         String s2 = i1.toString();
-        //截取 1 之后的字符串 员工编号还是8位 以 0000001 格式
+        //截取 1 之后的字符串 队员编号还是8位 以 0000001 格式
         String newID = s2.substring(1);
         return RespBean.success(null, newID);
     }
 
     @Override
     public RespBean getMaxWorkID2() {
-        // 获取员工编号最大值
+        // 获取队员编号最大值
         String maxWorkID = employeeMapper.getMaxWorkID();
         if (maxWorkID == null || maxWorkID.equals("")){
             maxWorkID = "0001";
         }
-        // 转换成 integer 将最大的 员工id 加 1 ， 可以保证编号唯一切自增
+        // 转换成 integer 将最大的 队员id 加 1 ， 可以保证编号唯一切自增
         Integer i = Integer.parseInt(maxWorkID) + 1;
         // 格式化用0补齐前面的位数 编号8位数 ， 该方法只能传入数字，自动格式化后转换为 String 类型
         String format = String.format("%08d", i);
@@ -95,7 +95,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     /**
-     * 添加员工
+     * 添加队员
      * @param employee
      * @return
      */
@@ -122,17 +122,17 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     /**
-     * 导出员工表格
+     * 导出队员表格
      * @param id
      * @return
      */
     @Override
     public void getEmployee(Integer id, HttpServletResponse response) {
         List<Employee> employeeList = employeeMapper.getEmployeeList(id);
-        // 导出员工信息基本设置
+        // 导出队员信息基本设置
         // title：文件内容中的标题名，第一行 sheetName：文件中的表名 ExcelType:导出的表格文件名后缀， .HSSF 后缀为.xls，.XSSF 为 .xlsx，
         // 2003版本的导出速度更快，并且用 2003 或者 2003 以上的office都能打开，2007版本的office只能向上兼容
-        ExportParams exportParams = new ExportParams("员工信息表", "员工信息", ExcelType.HSSF);
+        ExportParams exportParams = new ExportParams("队员信息表", "队员信息", ExcelType.HSSF);
         // 查询到的 list 导出的表格数据，此时还没有输出文件
         Workbook sheets = ExcelExportUtil.exportExcel(exportParams, Employee.class, employeeList);
 
@@ -141,8 +141,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
             // 以流的形式输出,防止文件乱码
             response.setContentType("application/octet-stream");
             // 防止下载出来的文件名中文乱码
-            // URLEncoder.encode("员工信息表.xls","UTF-8") ： 输出的文件名并且设置编码
-            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("员工信息表.xls","UTF-8"));
+            // URLEncoder.encode("队员信息表.xls","UTF-8") ： 输出的文件名并且设置编码
+            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("队员信息表.xls","UTF-8"));
             // 拿到输出流
             outputStream = new BufferedOutputStream(response.getOutputStream());
             // 导出的表格数据，以流的形式输出，提供给浏览器下载

@@ -32,7 +32,7 @@ public class MailLog implements Serializable {
     @TableId("msgId")
     private String msgId;
 
-    @ApiModelProperty(value = "接收员工id")
+    @ApiModelProperty(value = "接收队员id")
     private Integer eid;
 
     @ApiModelProperty(value = "状态（0:消息投递中 1:投递成功 2:投递失败）")

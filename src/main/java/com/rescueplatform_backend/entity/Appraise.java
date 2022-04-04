@@ -33,7 +33,7 @@ public class Appraise implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "员工id")
+    @ApiModelProperty(value = "队员id")
     private Integer eid;
 
     @ApiModelProperty(value = "考评日期")

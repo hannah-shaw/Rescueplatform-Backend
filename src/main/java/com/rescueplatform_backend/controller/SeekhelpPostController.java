@@ -2,10 +2,12 @@ package com.rescueplatform_backend.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.google.common.collect.Lists;
 import com.rescueplatform_backend.entity.HelpPost;
 import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.RespPageBean;
 import com.rescueplatform_backend.entity.SeekhelpPost;
+import com.rescueplatform_backend.mapper.SeekhelpPostMapper;
 import com.rescueplatform_backend.service.HelpPostService;
 import com.rescueplatform_backend.service.SeekhelpPostService;
 import io.swagger.annotations.Api;
@@ -14,8 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -53,6 +54,28 @@ public class SeekhelpPostController {
     public int getAllSeekPostNum(){
 
         return SeekhelpPostService.list().size();
+    }
+
+    @ApiOperation(value = "获取求助信息省市信息")
+    @GetMapping("/provinceData")
+    public List<Map<String, String>> getProvinceData(){
+        QueryWrapper wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
+        wrapper.select("distinct province");
+        List<SeekhelpPost>  seekHelpPostsPro = SeekhelpPostService.list(wrapper);
+        List<Map<String, String>> provinceData = new ArrayList<Map<String,String>>();
+        String province = null ;
+        for(int i = 0 ; i < seekHelpPostsPro.size();i++) {
+            Map<String,String> provinceMap = new HashMap<String,String>();
+            province = seekHelpPostsPro.get(i).getProvince();
+            QueryWrapper wrapper1 = new QueryWrapper<>();
+            wrapper1.like("province",province);
+            int proNum = SeekhelpPostService.list(wrapper1).size();
+            provinceMap.put("province",province);
+            provinceMap.put("num", String.valueOf(proNum));
+            provinceData.add(provinceMap);
+        }
+
+        return provinceData;
     }
 
     @ApiOperation(value = "根据传入id获取求助信息")

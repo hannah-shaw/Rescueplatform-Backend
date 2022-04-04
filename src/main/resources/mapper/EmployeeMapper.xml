@@ -74,7 +74,7 @@
             e.id = #{eid}
     </update>
 
-    <!--分页获取所有员工-->
+    <!--分页获取所有队员-->
     <select id="getEmployeePage" resultMap="EmployeeInfo">
         select
         e.*,
@@ -127,7 +127,7 @@
         </where>
     </select>
 
-    <!--获取员工最大编号-->
+    <!--获取队员最大编号-->
     <select id="getMaxWorkID" resultType="string">
         SELECT
             max( workID )
@@ -135,7 +135,7 @@
             t_employee;
     </select>
 
-    <!--导出员工表格-->
+    <!--导出队员表格-->
     <select id="getEmployeeList" parameterType="integer" resultMap="EmployeeInfo">
         SELECT
         e.*,

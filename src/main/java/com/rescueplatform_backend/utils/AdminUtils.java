@@ -4,7 +4,7 @@ import com.rescueplatform_backend.entity.Admin;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * @description: 操作员工具类
+ * @description: 操作队员具类
  * @author: hannah
  */
 public class AdminUtils {
