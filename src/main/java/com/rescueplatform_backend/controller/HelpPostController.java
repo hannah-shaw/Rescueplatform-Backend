@@ -54,6 +54,16 @@ public class HelpPostController {
         return HelpPostService.list().size();
     }
 
+    @ApiOperation(value = "获取未核实求助信息数量")
+    @GetMapping("/noCheckedNum")
+    public int getHelpPostNotVerifyNum(){
+        QueryWrapper wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
+        wrapper.eq("checked",false);
+        List<HelpPost>  helpPostsPro = HelpPostService.list(wrapper);
+        return helpPostsPro.size();
+    }
+
+
     @ApiOperation(value = "获取帮助信息省信息")
     @GetMapping("/provinceData")
     public List<Map<String, String>> getProvinceData(){

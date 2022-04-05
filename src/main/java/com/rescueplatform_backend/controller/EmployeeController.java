@@ -6,6 +6,7 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rescueplatform_backend.entity.*;
 import com.rescueplatform_backend.service.*;
 import io.swagger.annotations.Api;
@@ -21,10 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -74,11 +72,64 @@ public class EmployeeController {
         return politicsStatusService.list();
     }
 
-    @ApiOperation(value = "获取所有职称")
+    @ApiOperation(value = "获取所有政治面貌人数")
+    @GetMapping("/get-all-politics-Num")
+    public List<Map<String, String>> getPoliticsNum() {
+        List<PoliticsStatus> politicss = politicsStatusService.list();
+        List<Employee> employees = employeeService.list();
+        List<Integer> politicsNum = new ArrayList<Integer>(10);
+        int a = 0;
+        List<Map<String, String>> positionData = new ArrayList<Map<String,String>>();
+        for(int i = 0 ; i <= politicss.size();i++) {
+            politicsNum.add(0);
+        }
+        for(int i = 0 ; i < employees.size();i++) {
+            a = employees.get(i).getPosId();
+            int num = (politicsNum.get(a))+1;
+            politicsNum.set(a,num);
+
+        }
+        for(int i = 1 ; i <= politicss.size();i++) {
+            Map<String,String> positionMap = new HashMap<String,String>();
+            positionMap.put("nation",politicss.get(i-1).getName());
+            positionMap.put("num", String.valueOf(politicsNum.get(i)));
+            positionData.add(positionMap);
+        }
+
+        return positionData;
+    }
+
+    @ApiOperation(value = "获取所有职位")
     @GetMapping("/get-all-job")
     public List<Joblevel> getJoblevel() {
-
         return joblevelService.list();
+    }
+
+    @ApiOperation(value = "获取所有职位人数")
+    @GetMapping("/get-all-Job-Num")
+    public List<Map<String, String>> getJobNum() {
+        List<Joblevel> nations = joblevelService.list();
+        List<Employee> employees = employeeService.list();
+        List<Integer> joblevelNum = new ArrayList<Integer>(10);
+        int a = 0;
+        List<Map<String, String>> positionData = new ArrayList<Map<String,String>>();
+        for(int i = 0 ; i <= nations.size();i++) {
+            joblevelNum.add(0);
+        }
+        for(int i = 0 ; i < employees.size();i++) {
+            a = employees.get(i).getPosId();
+            int num = (joblevelNum.get(a))+1;
+            joblevelNum.set(a,num);
+
+        }
+        for(int i = 1 ; i <= nations.size();i++) {
+            Map<String,String> positionMap = new HashMap<String,String>();
+            positionMap.put("nation",nations.get(i-1).getName());
+            positionMap.put("num", String.valueOf(joblevelNum.get(i)));
+            positionData.add(positionMap);
+        }
+
+        return positionData;
     }
 
     @ApiOperation(value = "获取所有民族")
@@ -88,14 +139,69 @@ public class EmployeeController {
         return nationService.list();
     }
 
-    @ApiOperation(value = "获取所有岗位")
+    @ApiOperation(value = "获取所有民族人数")
+    @GetMapping("/get-all-Nation-Num")
+    public List<Map<String, String>> getNationNum() {
+        List<Nation> nations = nationService.list();
+        List<Employee> employees = employeeService.list();
+        List<Integer> nationNum = new ArrayList<Integer>(10);
+        int a = 0;
+        List<Map<String, String>> positionData = new ArrayList<Map<String,String>>();
+        for(int i = 0 ; i <= nations.size();i++) {
+            nationNum.add(0);
+        }
+        for(int i = 0 ; i < employees.size();i++) {
+            a = employees.get(i).getPosId();
+            int num = (nationNum.get(a))+1;
+            nationNum.set(a,num);
+
+        }
+        for(int i = 1 ; i <= nations.size();i++) {
+            Map<String,String> positionMap = new HashMap<String,String>();
+            positionMap.put("nation",nations.get(i-1).getName());
+            positionMap.put("num", String.valueOf(nationNum.get(i)));
+            positionData.add(positionMap);
+        }
+
+        return positionData;
+    }
+
+    @ApiOperation(value = "获取所有队员技能点")
     @GetMapping("/get-all-Position")
     public List<Position> getPosition() {
 
         return positionService.list();
     }
 
-    @ApiOperation(value = "获取所有部门")
+    @ApiOperation(value = "获取所有队员技能点人数")
+    @GetMapping("/get-all-Position-Num")
+    public List<Map<String, String>> getPositionNum() {
+        List<Position> positions = positionService.list();
+        List<Employee> employees = employeeService.list();
+        List<Integer> positionNum = new ArrayList<Integer>(10);
+        int a = 0;
+        List<Map<String, String>> positionData = new ArrayList<Map<String,String>>();
+        for(int i = 0 ; i <= positions.size();i++) {
+            positionNum.add(0);
+        }
+        for(int i = 0 ; i < employees.size();i++) {
+            a = employees.get(i).getPosId();
+            int num = (positionNum.get(a))+1;
+            positionNum.set(a,num);
+
+        }
+        for(int i = 1 ; i <= positions.size();i++) {
+            Map<String,String> positionMap = new HashMap<String,String>();
+            positionMap.put("position",positions.get(i-1).getName());
+            positionMap.put("num", String.valueOf(positionNum.get(i)));
+            positionData.add(positionMap);
+        }
+
+        return positionData;
+    }
+
+
+    @ApiOperation(value = "获取所有队员所属部门")
     @GetMapping("/get-all-Department")
     public List<Department> Department() {
 

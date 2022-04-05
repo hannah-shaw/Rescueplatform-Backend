@@ -56,6 +56,24 @@ public class SeekhelpPostController {
         return SeekhelpPostService.list().size();
     }
 
+    @ApiOperation(value = "获取未核实求助信息数量")
+    @GetMapping("/noCheckedNum")
+    public int getSeekPostNotVerifyNum(){
+        QueryWrapper wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
+        wrapper.eq("checked",false);
+        List<SeekhelpPost>  seekHelpPostsPro = SeekhelpPostService.list(wrapper);
+        return seekHelpPostsPro.size();
+    }
+
+    @ApiOperation(value = "获取未救援求助信息数量")
+    @GetMapping("/nosafedNum")
+    public int getSeekPostNotSafedNum(){
+        QueryWrapper wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
+        wrapper.eq("safed",false);
+        List<SeekhelpPost>  seekHelpPostsPro = SeekhelpPostService.list(wrapper);
+        return seekHelpPostsPro.size();
+    }
+
     @ApiOperation(value = "获取求助信息省信息")
     @GetMapping("/provinceData")
     public List<Map<String, String>> getProvinceData(){
