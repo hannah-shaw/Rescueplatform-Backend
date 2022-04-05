@@ -56,7 +56,7 @@ public class SeekhelpPostController {
         return SeekhelpPostService.list().size();
     }
 
-    @ApiOperation(value = "获取求助信息省市信息")
+    @ApiOperation(value = "获取求助信息省信息")
     @GetMapping("/provinceData")
     public List<Map<String, String>> getProvinceData(){
         QueryWrapper wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
@@ -71,6 +71,29 @@ public class SeekhelpPostController {
             wrapper1.like("province",province);
             int proNum = SeekhelpPostService.list(wrapper1).size();
             provinceMap.put("province",province);
+            provinceMap.put("num", String.valueOf(proNum));
+            provinceData.add(provinceMap);
+        }
+
+        return provinceData;
+    }
+
+    @ApiOperation(value = "获取求助信息市信息")
+    @GetMapping("/cityData/{province}")
+    public List<Map<String, String>> getCityData(@PathVariable("province") String province){
+        QueryWrapper wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
+        wrapper.select("distinct city").like("province",province);
+        List<SeekhelpPost>  seekHelpPostsPro = SeekhelpPostService.list(wrapper);
+        List<Map<String, String>> provinceData = new ArrayList<Map<String,String>>();
+        String city = null ;
+        for(int i = 0 ; i < seekHelpPostsPro.size();i++) {
+            Map<String,String> provinceMap = new HashMap<String,String>();
+            city = seekHelpPostsPro.get(i).getCity();
+            QueryWrapper wrapper1 = new QueryWrapper<>();
+            wrapper1.like("city",city);
+            int proNum = SeekhelpPostService.list(wrapper1).size();
+            provinceMap.put("province",province);
+            provinceMap.put("city",city);
             provinceMap.put("num", String.valueOf(proNum));
             provinceData.add(provinceMap);
         }

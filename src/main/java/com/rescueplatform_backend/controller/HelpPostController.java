@@ -14,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -53,6 +52,51 @@ public class HelpPostController {
     public int getAllHelpPostNum(){
 
         return HelpPostService.list().size();
+    }
+
+    @ApiOperation(value = "获取帮助信息省信息")
+    @GetMapping("/provinceData")
+    public List<Map<String, String>> getProvinceData(){
+        QueryWrapper wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
+        wrapper.select("distinct province");
+        List<HelpPost>  HelpPostsPro = HelpPostService.list(wrapper);
+        List<Map<String, String>> provinceData = new ArrayList<Map<String,String>>();
+        String province = null ;
+        for(int i = 0 ; i < HelpPostsPro.size();i++) {
+            Map<String,String> provinceMap = new HashMap<String,String>();
+            province = HelpPostsPro.get(i).getProvince();
+            QueryWrapper wrapper1 = new QueryWrapper<>();
+            wrapper1.like("province",province);
+            int proNum = HelpPostService.list(wrapper1).size();
+            provinceMap.put("province",province);
+            provinceMap.put("num", String.valueOf(proNum));
+            provinceData.add(provinceMap);
+        }
+
+        return provinceData;
+    }
+
+    @ApiOperation(value = "获取帮助信息市信息")
+    @GetMapping("/cityData/{province}")
+    public List<Map<String, String>> getCityData(@PathVariable("province") String province){
+        QueryWrapper wrapper = new QueryWrapper<>();// 构建一个查询的wrapper
+        wrapper.select("distinct city").like("province",province);
+        List<HelpPost>  HelpPostsPro = HelpPostService.list(wrapper);
+        List<Map<String, String>> provinceData = new ArrayList<Map<String,String>>();
+        String city = null ;
+        for(int i = 0 ; i < HelpPostsPro.size();i++) {
+            Map<String,String> provinceMap = new HashMap<String,String>();
+            city = HelpPostsPro.get(i).getCity();
+            QueryWrapper wrapper1 = new QueryWrapper<>();
+            wrapper1.like("city",city);
+            int proNum = HelpPostService.list(wrapper1).size();
+            provinceMap.put("province",province);
+            provinceMap.put("city",city);
+            provinceMap.put("num", String.valueOf(proNum));
+            provinceData.add(provinceMap);
+        }
+
+        return provinceData;
     }
 
     @ApiOperation(value = "根据传入id获取帮助信息")
