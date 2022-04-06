@@ -6,6 +6,8 @@ import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.RespPageBean;
 import com.rescueplatform_backend.entity.SeekhelpPost;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -24,4 +26,9 @@ public interface HelpPostService extends IService<HelpPost> {
      */
     RespPageBean getHelpPostList(Integer currentPage, Integer size, HelpPost helpPost);
 
+    /**
+     * 导出帮助表格
+     * @param id
+     */
+    List<HelpPost> getHelp(Integer id);
 }

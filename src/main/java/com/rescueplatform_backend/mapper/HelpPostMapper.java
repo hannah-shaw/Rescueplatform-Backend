@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rescueplatform_backend.entity.SeekhelpPost;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -22,4 +24,6 @@ public interface HelpPostMapper extends BaseMapper<HelpPost> {
      * @param helpPost
      */
     IPage<HelpPost> getHelpPage(@Param("page") Page<HelpPost> page, @Param("helpPost") HelpPost helpPost);
+
+    List<HelpPost> getHelpList(Integer id);
 }

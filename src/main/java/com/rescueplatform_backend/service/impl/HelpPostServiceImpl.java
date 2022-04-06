@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rescueplatform_backend.entity.HelpPost;
 import com.rescueplatform_backend.entity.RespBean;
 import com.rescueplatform_backend.entity.RespPageBean;
+import com.rescueplatform_backend.entity.SeekhelpPost;
 import com.rescueplatform_backend.mapper.HelpPostMapper;
 import com.rescueplatform_backend.service.HelpPostService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -42,6 +44,14 @@ public class HelpPostServiceImpl extends ServiceImpl<HelpPostMapper, HelpPost> i
         RespPageBean respPageBean = new RespPageBean(HelpPage.getTotal(), HelpPage.getRecords());
         return respPageBean;
     }
-
+    /**
+     * 导出帮助表格
+     * @param id
+     * @return
+     */
+    @Override
+    public List<HelpPost> getHelp(Integer id) {
+        return helpPostMapper.getHelpList(id);
+    }
 
 }

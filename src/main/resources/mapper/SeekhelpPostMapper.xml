@@ -53,4 +53,15 @@
     order by s.id desc
     </select>
 
+    <!--导出求助表格-->
+    <select id="getSKList" parameterType="integer" resultMap="BaseResultMap">
+        SELECT
+        sh.*
+        FROM
+        t_seekhelp_post sh
+        <if test="id != null and id > 0">
+            AND sh.id = #{id}
+        </if>
+    </select>
+
 </mapper>

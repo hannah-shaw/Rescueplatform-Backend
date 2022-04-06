@@ -6,6 +6,8 @@ import com.rescueplatform_backend.entity.SeekhelpPost;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -21,4 +23,6 @@ public interface SeekhelpPostMapper extends BaseMapper<SeekhelpPost> {
      * @param seekhelpPost
      */
     IPage<SeekhelpPost> getSeekPage(@Param("page") Page<SeekhelpPost> page, @Param("seekhelpPost") SeekhelpPost seekhelpPost);
+
+    List<SeekhelpPost> getSKList(Integer id);
 }

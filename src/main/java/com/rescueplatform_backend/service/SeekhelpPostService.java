@@ -5,6 +5,9 @@ import com.rescueplatform_backend.entity.RespPageBean;
 import com.rescueplatform_backend.entity.SeekhelpPost;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -22,4 +25,10 @@ public interface SeekhelpPostService extends IService<SeekhelpPost> {
      * @return
      */
     RespPageBean getSeekPostList(Integer currentPage, Integer size, SeekhelpPost seekhelpPost);
+
+    /**
+     * 导出求助表格
+     * @param id
+     */
+    List<SeekhelpPost> getSeekHelp(Integer id);
 }

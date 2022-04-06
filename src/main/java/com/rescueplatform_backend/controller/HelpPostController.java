@@ -1,6 +1,9 @@
 package com.rescueplatform_backend.controller;
 
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rescueplatform_backend.entity.HelpPost;
 import com.rescueplatform_backend.entity.RespBean;
@@ -10,9 +13,14 @@ import com.rescueplatform_backend.service.HelpPostService;
 import com.rescueplatform_backend.service.SeekhelpPostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -187,4 +195,37 @@ public class HelpPostController {
         return RespBean.error("删除失败!");
     }
 
+    @ApiOperation(value = "导出帮助表格")
+    @GetMapping(value = "/export",produces = "application/octet-stream")
+    public void exportEmp(HttpServletResponse response){
+        List<HelpPost> helpPostsList = HelpPostService.getHelp(null);
+        // 导出队员信息基本设置
+        // title：文件内容中的标题名，第一行 sheetName：文件中的表名 ExcelType:导出的表格文件名后缀， .HSSF 后缀为.xls，.XSSF 为 .xlsx，
+        // 2003版本的导出速度更快，并且用 2003 或者 2003 以上的office都能打开，2007版本的office只能向上兼容
+        ExportParams exportParams = new ExportParams("物资/志愿 信息表", "志愿/物资 信息", ExcelType.HSSF);
+        // 查询到的 list 导出的表格数据，此时还没有输出文件
+        Workbook sheets = ExcelExportUtil.exportExcel(exportParams, HelpPost.class, helpPostsList);
+
+        BufferedOutputStream outputStream = null;
+        try {
+            // 以流的形式输出,防止文件乱码
+            response.setContentType("application/octet-stream");
+            // 防止下载出来的文件名中文乱码
+            // URLEncoder.encode("队员信息表.xls","UTF-8") ： 输出的文件名并且设置编码
+            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("求助信息表.xls","UTF-8"));
+            // 拿到输出流
+            outputStream = new BufferedOutputStream(response.getOutputStream());
+            // 导出的表格数据，以流的形式输出，提供给浏览器下载
+            sheets.write(outputStream);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

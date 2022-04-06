@@ -66,6 +66,36 @@ public class EmployeeController {
 
     }
 
+    @ApiOperation(value = "获取所有性别人数")
+    @GetMapping("/get-all-sex-Num")
+    public List<Map<String, String>> getSexNum() {
+        List<Employee> employees = employeeService.list();
+        String a = null;
+        int man = 0;
+        int woman = 0;
+        List<Map<String, String>> positionData = new ArrayList<Map<String,String>>();
+        for(int i = 0 ; i < employees.size();i++) {
+            a = employees.get(i).getGender();
+            if(a.equals("男")){
+                man++;
+            }
+            else{
+                woman++;
+            }
+
+        }
+            Map<String,String> positionMap = new HashMap<String,String>();
+            positionMap.put("gender","男");
+            positionMap.put("num", String.valueOf(man));
+            positionData.add(positionMap);
+            Map<String,String> positionMapF = new HashMap<String,String>();
+            positionMapF.put("gender","女");
+            positionMapF.put("num", String.valueOf(woman));
+            positionData.add(positionMapF);
+
+        return positionData;
+    }
+
     @ApiOperation(value = "获取所有政治面貌")
     @GetMapping("/get-politics-status")
     public List<PoliticsStatus> getPoliticsStatus() {
@@ -84,7 +114,7 @@ public class EmployeeController {
             politicsNum.add(0);
         }
         for(int i = 0 ; i < employees.size();i++) {
-            a = employees.get(i).getPosId();
+            a = employees.get(i).getPoliticId();
             int num = (politicsNum.get(a))+1;
             politicsNum.set(a,num);
 
@@ -117,7 +147,7 @@ public class EmployeeController {
             joblevelNum.add(0);
         }
         for(int i = 0 ; i < employees.size();i++) {
-            a = employees.get(i).getPosId();
+            a = employees.get(i).getJobLevelId();
             int num = (joblevelNum.get(a))+1;
             joblevelNum.set(a,num);
 
@@ -151,7 +181,7 @@ public class EmployeeController {
             nationNum.add(0);
         }
         for(int i = 0 ; i < employees.size();i++) {
-            a = employees.get(i).getPosId();
+            a = employees.get(i).getNationId();
             int num = (nationNum.get(a))+1;
             nationNum.set(a,num);
 

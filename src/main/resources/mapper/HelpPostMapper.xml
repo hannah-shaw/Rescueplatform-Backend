@@ -48,5 +48,15 @@
         order by h.id desc
     </select>
 
+    <!--导出帮助表格-->
+    <select id="getHelpList" parameterType="integer" resultMap="BaseResultMap">
+        SELECT
+        sh.*
+        FROM
+        t_help_post sh
+        <if test="id != null and id > 0">
+            AND sh.id = #{id}
+        </if>
+    </select>
 
 </mapper>
