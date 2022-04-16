@@ -33,6 +33,9 @@ mybatis-plus:
   configuration:
     # 自动驼峰命名
     map-underscore-to-camel-case: false
+
+## 设置server参数
+## 端口
 server:
   port: 8081
 
