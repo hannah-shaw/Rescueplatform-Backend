@@ -1,4 +1,6 @@
 # rescueplatform_backend
+Emergency rescue information service platform based on SpringBoot and Vue.js - Backend repository.
+
 ## 基于SpringBoot和Vue.js的突发事件应急救援信息服务平台——后端仓库。
 基于 SpringBoot 和 Vue.js 实现的应急救援信息服务平台，用户可以基于当前地理位置进行灾情信息的上传，同时通过地图查看附近用户的求助信息以及志愿信息。
 管理员可以通过系统的管理端对用户发布的灾情信息以及救援队伍进行管理，对灾情的及时处理提供帮助。
